@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Name-OS</title>
-<link rel="icon" href="/favicon_io/favicon.ico" sizes="any">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon_io/favicon-32x32.png">
-<link rel="apple-touch-icon" href="/favicon_io/apple-touch-icon.png">
+<link rel="icon" href="favicon_io/favicon.ico?v=2" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png?v=2">
+<link rel="apple-touch-icon" href="favicon_io/apple-touch-icon.png?v=2">
 <script defer src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
 <style>
 :root{--t:rgba(255,255,255,.96);--t2:rgba(255,255,255,.62);--t3:rgba(255,255,255,.38);
@@ -26,7 +26,7 @@
 html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
 html,body{overflow:hidden;overscroll-behavior:none}
 /* PERF: removed "fixed" attachment from the background (it forces a full repaint on every frame) */
-body{height:100%;font-family:var(--font);color:var(--t);background:url("Lock.png") center/cover no-repeat,#0a0d1f;line-height:1.5;user-select:none;-webkit-user-select:none;-webkit-font-smoothing:antialiased;letter-spacing:-.01em}
+body{height:100%;font-family:var(--font);color:var(--t);background:url("assets/Lock.png") center/cover no-repeat,#0a0d1f;line-height:1.5;user-select:none;-webkit-user-select:none;-webkit-font-smoothing:antialiased;letter-spacing:-.01em}
 button{font-family:inherit;color:inherit;border:0;background:none;cursor:pointer}
 .gl{background:var(--gb);backdrop-filter:blur(28px) saturate(170%);-webkit-backdrop-filter:blur(28px) saturate(170%);border:.5px solid var(--gbd);box-shadow:0 10px 34px rgba(0,0,0,.22),inset 0 1px 0 var(--hi)}
 /* LOCK */
@@ -106,12 +106,19 @@ button{font-family:inherit;color:inherit;border:0;background:none;cursor:pointer
 #home{position:fixed;inset:0;z-index:45;background:var(--base);overflow-y:auto;overscroll-behavior:contain;padding:max(28px,env(safe-area-inset-top)) 28px 40px;user-select:text;-webkit-user-select:text;opacity:0;visibility:hidden;transform:scale(.95);transition:opacity 1.1s var(--e),visibility 1.1s,transform 1.1s var(--e),background-color .6s}
 #home.show{opacity:1;visibility:visible;transform:none}
 .wallpaper{position:fixed;inset:0;z-index:-1;width:100%;height:100%;object-fit:cover;filter:blur(28px) saturate(1.3) brightness(.55);transform:scale(1.15);opacity:.5;pointer-events:none;will-change:transform}
-.wrap{max-width:1240px;margin:0 auto}
+.home-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(220px,260px);gap:20px;max-width:1500px;margin:0 auto;align-items:start}
+.wrap{grid-column:1;grid-row:1;min-width:0}
 .grid{display:grid;gap:16px;grid-template-columns:repeat(12,1fr)}
 .card{background:var(--glass);backdrop-filter:blur(40px) saturate(180%);-webkit-backdrop-filter:blur(40px) saturate(180%);border:.5px solid var(--stroke);border-radius:28px;padding:22px;box-shadow:inset 0 .5px 0 var(--hi),0 1px 2px rgba(0,0,0,.2),0 24px 48px -16px rgba(0,0,0,.45)}
 .card h3{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--t2);margin-bottom:14px}
 .card h3 i{width:20px;height:20px;border-radius:6px;background:var(--acc);color:var(--on);font:700 11px/20px var(--font);text-align:center;font-style:normal}
 .card h3 span{margin-left:auto;font-weight:500;font-size:12px;color:var(--t3)}
+.projects{grid-column:2;grid-row:1;position:sticky;top:24px}
+.project-list{display:flex;flex-direction:column;gap:8px}
+.project-link{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 14px;border-radius:16px;background:var(--fill);color:var(--t);text-decoration:none;font-size:14px;font-weight:600;transition:background .2s,transform .25s var(--e)}
+.project-link:hover{background:var(--fill2);transform:translateX(3px)}
+.project-link span:last-child{color:var(--t3);font-size:17px}
+.project-note{margin-top:14px;color:var(--t3);font-size:12px;text-align:center}
 #home.show .card{animation:rise .8s var(--e) both}#home.show .card:nth-child(2){animation-delay:.06s}#home.show .card:nth-child(3){animation-delay:.12s}#home.show .card:nth-child(n+4){animation-delay:.18s}
 @keyframes rise{from{opacity:0;transform:translateY(16px) scale(.98)}}
 input,textarea{font:400 14px var(--font);color:var(--t);background:var(--fill);border:.5px solid var(--sep);border-radius:12px;padding:10px 12px;outline:0;min-width:0;transition:box-shadow .2s,background .2s}
@@ -144,7 +151,7 @@ a{color:var(--t2)}
 .stocks,.reminder{grid-column:span 6}.weather,.calendar,.news{grid-column:span 4}.notes{grid-column:span 8}.pomo{grid-column:span 4;text-align:center}
 .stock{display:grid;grid-template-columns:1fr 92px auto;align-items:center;gap:12px;padding:11px 0;border-bottom:.5px solid var(--sep)}.stock:last-child{border:0;padding-bottom:0}
 .sym{font-weight:700;font-size:15px}.nm2{font-size:12px;color:var(--t2)}.px{text-align:right;font-variant-numeric:tabular-nums}.pv{font-weight:600}.pc{font-size:12px;font-weight:500}
-.up{color:var(--acc)}.down{color:var(--down)}canvas.spark{width:92px;height:32px}
+.up{color:var(--acc)}.down{color:var(--down)}canvas.spark{width:120px;height:40px}
 .count{font-size:54px;font-weight:200;font-variant-numeric:tabular-nums;letter-spacing:-.04em;line-height:1;margin:4px 0 6px;transition:color .3s}.count small{font-size:20px;color:var(--t3);margin-left:4px}
 .next{font-size:13px;color:var(--t2);margin-bottom:16px;min-height:18px}.next b{color:var(--t)}
 .form{display:flex;gap:8px;margin-bottom:12px}.form input[type=text]{flex:1}.form .btn{height:40px}
@@ -178,11 +185,12 @@ a{color:var(--t2)}
 .sp2.open{opacity:1;visibility:visible;transform:none}.sp2 h4{font-size:11px;font-weight:700;color:var(--t3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px}
 .swt{display:flex;align-items:center;gap:10px;width:100%;font:500 13px var(--font);padding:8px 10px;border-radius:12px;text-align:left}.swt:hover{background:var(--fill)}.swt.active{background:var(--fill2)}
 .swt i{width:18px;height:18px;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(255,255,255,.25)}.swt.active i{outline:2px solid var(--acc);outline-offset:2px}
-@media(max-width:1000px){.stocks,.reminder,.weather,.calendar,.news,.notes,.pomo{grid-column:span 12}#home{padding:max(20px,env(safe-area-inset-top)) 14px 90px}}
+@media(max-width:1000px){.home-layout{grid-template-columns:1fr}.wrap,.projects{grid-column:1;grid-row:auto}.projects{position:static}.stocks,.reminder,.weather,.calendar,.news,.notes,.pomo{grid-column:span 12}#home{padding:max(20px,env(safe-area-inset-top)) 14px 90px}}
 @media(max-width:900px){.lock{justify-content:flex-start;overflow-y:auto;padding-bottom:130px}.wc{position:relative;top:auto;right:auto;transform:none;margin-top:30px;padding:0 20px}.swipe,.qa,.hbar{position:fixed}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition-duration:.01s!important}}
 ::-webkit-scrollbar{width:6px}::-webkit-scrollbar-thumb{background:var(--fill2);border-radius:99px}
 </style>
+<base target="_blank">
 </head>
 <body data-theme="forest">
 
@@ -225,12 +233,24 @@ a{color:var(--t2)}
 </div>
 
 <div class="ov" id="flash"><div class="fc"><svg viewBox="0 0 24 24"><path d="M4 12.5L9.5 18 20 6.5"/></svg></div><div class="ft">Access Granted</div></div>
-<canvas id="gc"></canvas><img id="gr" src="MyFace copy 2.jpg" alt="reference">
+<canvas id="gc"></canvas><img id="gr" src="assets/MyFace copy 2.jpg" alt="reference">
 
 <div id="home">
-<img class="wallpaper" src="Home.png" alt="" onerror="this.remove()">
+<img class="wallpaper" src="assets/Home.png" alt="" onerror="this.remove()">
 <div class="eh" aria-hidden="true"></div><div class="eg" aria-hidden="true"></div>
 <nav class="ap" id="apps" aria-label="Apps"><h4>Apps</h4></nav>
+<div class="home-layout">
+<aside class="card projects" aria-labelledby="projects-title">
+  <h3 id="projects-title"><i>↗</i>My projects<span>5</span></h3>
+  <div class="project-list">
+    <a class="project-link" href="https://robotswr12ll-glitch.github.io/HTMLpedia/" target="_blank" rel="noopener"><span>HTMLpedia</span><span aria-hidden="true">↗</span></a>
+    <a class="project-link" href="https://robotswr12ll-glitch.github.io/tech-roadmap/" target="_blank" rel="noopener"><span>Tech Roadmap</span><span aria-hidden="true">↗</span></a>
+    <a class="project-link" href="https://ceq-training.vercel.app/" target="_blank" rel="noopener"><span>CEQ Training</span><span aria-hidden="true">↗</span></a>
+    <a class="project-link" href="https://robotswr12ll-glitch.github.io/Epiphany-Crash/" target="_blank" rel="noopener"><span>Epiphany Crash</span><span aria-hidden="true">↗</span></a>
+    <a class="project-link" href="https://my-life-is-a-sidequest.vercel.app/" target="_blank" rel="noopener"><span>My Life Is a Sidequest</span><span aria-hidden="true">↗</span></a>
+  </div>
+  <div class="project-note">A few things I’ve built</div>
+</aside>
 <div class="wrap"><div class="grid">
   <div class="card cl"><h3><i>◷</i>World Clock<span>Live</span></h3><div class="cg" id="cg"></div></div>
   <div class="card stocks"><h3><i>↗</i>Markets<span id="sb"></span></h3><div id="sl"></div></div>
@@ -250,7 +270,7 @@ a{color:var(--t2)}
   <div class="card pomo"><h3><i>◉</i>Focus timer</h3>
     <div class="rg"><svg viewBox="0 0 120 120"><circle class="bg" cx="60" cy="60" r="54"/><circle class="fg" id="pfg" cx="60" cy="60" r="54" stroke-dasharray="339.3" stroke-dashoffset="0"/></svg><div><div class="ptime" id="ptm">25:00</div><div class="pmode" id="pmd">Focus</div></div></div>
     <div class="pctl"><button class="btn" onclick="pomoToggle()" id="pb">Start</button><button class="btn soft" onclick="pomoReset()">Reset</button></div></div>
-</div></div>
+</div></div></div>
 <button class="sbtn" id="sbtn" aria-label="Theme settings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></button>
 <div class="sp2" id="sp2" role="menu"><h4>Appearance</h4>
   <button class="swt" data-t="forest"><i style="background:#12a15f"></i>Forest</button>
@@ -260,6 +280,7 @@ a{color:var(--t2)}
   <button class="swt" data-t="light"><i style="background:#e4e8f0"></i>Light</button></div>
 </div>
 
+<script src="config.js"></script>
 <script>
 const $=id=>document.getElementById(id);
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -418,20 +439,56 @@ c.f.classList.toggle('dark',H<6||H>=18);c.g.textContent=pad(H)+':'+pad(m)+':'+pa
 const ds=c.d2.format(now);if(c.ds!==ds){c.ds=ds;c.d.textContent=ds}}}
 
 /* ---------- HOME: MARKETS ---------- */
-const STOCKS=[{s:'AAPL',n:'Apple',v:195},{s:'NVDA',n:'NVIDIA',v:132},{s:'MSFT',n:'Microsoft',v:425},{s:'TSLA',n:'Tesla',v:248},{s:'SPY',n:'S&P 500 ETF',v:585}],sd={};let live=false;
-STOCKS.forEach(s=>{sd[s.s]={p:s.v,h:Array.from({length:40},(_,i)=>s.v+Math.sin(i/5)*2+(Math.random()-.5)*1.5)};const r=document.createElement('div');r.className='stock';r.id='sr-'+s.s;$('sl').appendChild(r)});
-async function fetchStocks(){if(document.hidden)return;let ok=false;
-await Promise.all(STOCKS.map(async s=>{try{const j=await(await fetch('https://query1.finance.yahoo.com/v8/finance/chart/'+s.s+'?interval=1d&range=1mo')).json(),c=j.chart.result[0].indicators.quote[0].close.filter(x=>x!=null);if(c.length){sd[s.s].h=c.slice(-40);sd[s.s].p=c[c.length-1];ok=true}}catch(e){}}));
-live=ok;if(!ok)STOCKS.forEach(s=>{const d=sd[s.s];d.p+=(Math.random()-.5)*d.p*.004;d.h.push(d.p);d.h.shift()});
-$('sb').textContent=live?'Live data':'Simulated · not real prices';renderStocks()}
-function renderStocks(){STOCKS.forEach(s=>{const d=sd[s.s],pv=d.h[d.h.length-2]||d.p,ch=(d.p-pv)/pv*100;
-$('sr-'+s.s).innerHTML=`<div><div class="sym">${s.s}</div><div class="nm2">${s.n}</div></div><canvas class="spark" id="sp-${s.s}"></canvas><div class="px"><div class="pv">$${d.p.toFixed(2)}</div><div class="pc ${ch>=0?'up':'down'}">${ch>=0?'+':'−'}${Math.abs(ch).toFixed(2)}%</div></div>`});drawSparks()}
+// API key lives in config.js (loaded above)
+const STOCKS=[{s:'AAPL',n:'Apple'},{s:'NVDA',n:'NVIDIA'},{s:'MSFT',n:'Microsoft'},{s:'TSLA',n:'Tesla'},{s:'SPY',n:'S&P 500 ETF'}],sd={};
+let stocksLoading=false;
+STOCKS.forEach(s=>{sd[s.s]={quote:null,history:[],error:null};const r=document.createElement('div');r.className='stock';r.id='sr-'+s.s;$('sl').appendChild(r)});
+async function finnhubGet(path,params){const url=new URL('https://finnhub.io/api/v1/'+path);Object.entries({...params,token:FINNHUB_API_KEY}).forEach(([k,v])=>url.searchParams.set(k,v));
+const response=await fetch(url);if(!response.ok)throw new Error('Finnhub request failed ('+response.status+')');
+const data=await response.json();if(data.error)throw new Error(data.error);return data}
+async function fetchStocks(){
+if(document.hidden||stocksLoading)return;stocksLoading=true;
+if(typeof FINNHUB_API_KEY==='undefined'||!FINNHUB_API_KEY){
+STOCKS.forEach(s=>{sd[s.s].error='Add your key to config.js'});$('sb').textContent='config.js missing';renderStocks();stocksLoading=false;return}
+/* quotes from Finnhub (free tier) */
+await Promise.all(STOCKS.map(async s=>{const d=sd[s.s];try{
+const quote=await finnhubGet('quote',{symbol:s.s});
+if(!Number.isFinite(quote.c)||quote.c<=0||!Number.isFinite(quote.pc)||quote.pc<=0)throw new Error('No quote data');
+d.quote=quote;d.error=null;
+}catch(error){d.error=error.message||'Quote unavailable'}
+/* 30-day history from Yahoo Finance (Finnhub candles need paid tier) */
+try{const y=s.s==='SPY'?'%5EGSPC':s.s;
+const r=await fetch('https://query1.finance.yahoo.com/v8/finance/chart/'+y+'?interval=1d&range=1mo');
+const jj=await r.json(),cl=jj.chart.result[0].indicators.quote[0].close.filter(Number.isFinite);
+d.history=cl.slice(-30)}catch(e){/* chart unavailable - stay silent, price still shows */}
+}));
+const ok=STOCKS.filter(s=>sd[s.s].quote).length;
+$('sb').textContent=ok===STOCKS.length?'Finnhub · Live':ok?'Finnhub · Partial':'Finnhub · No data';
+renderStocks();stocksLoading=false}
+function renderStocks(){STOCKS.forEach(s=>{const d=sd[s.s],q=d.quote,canvas=`<canvas class="spark" id="sp-${s.s}" aria-label="${s.s} 30-day chart"></canvas>`;
+const detail=q?`<div class="nm2">${s.n} · ${q.t?new Date(q.t*1000).toLocaleTimeString([],{hour:'numeric',minute:'2-digit'}):'Live'}</div>`:`<div class="nm2">${s.n} · ${d.error?'Unavailable':'Loading…'}</div>`;
+if(q){const change=q.c-q.pc,percent=Number.isFinite(q.dp)?q.dp:change/q.pc*100;
+$('sr-'+s.s).innerHTML=`<div><div class="sym">${s.s}</div>${detail}</div>${canvas}<div class="px"><div class="pv">$${q.c.toFixed(2)}</div><div class="pc ${change>=0?'up':'down'}">${change>=0?'+':'−'}$${Math.abs(change).toFixed(2)} (${change>=0?'+':'−'}${Math.abs(percent).toFixed(2)}%)</div></div>`}
+else $('sr-'+s.s).innerHTML=`<div><div class="sym">${s.s}</div>${detail}</div>${canvas}<div class="px"><div class="pv">—</div><div class="pc">No quote</div></div>`});drawSparks()}
 function drawSparks(){const cs=getComputedStyle(document.body),acc=cs.getPropertyValue('--acc').trim()||'#32d74b',dn=cs.getPropertyValue('--down').trim()||'#ff6961';
-STOCKS.forEach(s=>{const c=$('sp-'+s.s);if(!c)return;const x=c.getContext('2d'),dpr=devicePixelRatio||1;c.width=92*dpr;c.height=32*dpr;x.scale(dpr,dpr);
-const h=sd[s.s].h,mn=Math.min(...h),rg=Math.max(...h)-mn||1,col=h[h.length-1]>=h[0]?acc:dn;
-x.beginPath();h.forEach((v,i)=>{const px=i/(h.length-1)*90+1,py=29-(v-mn)/rg*25;i?x.lineTo(px,py):x.moveTo(px,py)});
-x.strokeStyle=col;x.lineWidth=1.75;x.lineJoin=x.lineCap='round';x.stroke();x.lineTo(91,32);x.lineTo(1,32);x.closePath();
-x.fillStyle=col+'22';x.fill()})}
+STOCKS.forEach(s=>{const c=$('sp-'+s.s);if(!c)return;const x=c.getContext('2d'),dpr=devicePixelRatio||1,W=120,H=40;c.width=W*dpr;c.height=H*dpr;x.scale(dpr,dpr);
+const h=sd[s.s].history;if(!h||h.length<2)return;
+const mn=Math.min(...h),rg=Math.max(...h)-mn||1,up=h[h.length-1]>=h[0],col=up?acc:dn;
+/* faint dashed gridlines like the reference */
+x.strokeStyle='rgba(255,255,255,.06)';x.lineWidth=1;x.setLineDash([3,4]);
+for(let g=1;g<3;g++){x.beginPath();x.moveTo(0,H*g/3);x.lineTo(W,H*g/3);x.stroke()}
+x.setLineDash([]);
+const pts=h.map((v,i)=>({px:i/(h.length-1)*(W-4)+2,py:H-((v-mn)/rg)*(H-14)-7}));
+/* gradient area fill under the line */
+x.beginPath();x.moveTo(pts[0].px,pts[0].py);pts.forEach(p=>x.lineTo(p.px,p.py));x.lineTo(W-2,H);x.lineTo(2,H);x.closePath();
+const g=x.createLinearGradient(0,0,0,H);g.addColorStop(0,up?acc+'40':dn+'40');g.addColorStop(1,'transparent');x.fillStyle=g;x.fill();
+/* the line */
+x.beginPath();x.moveTo(pts[0].px,pts[0].py);pts.forEach(p=>x.lineTo(p.px,p.py));
+x.strokeStyle=col;x.lineWidth=1.8;x.lineJoin=x.lineCap='round';x.stroke();
+/* glowing dot on the latest point */
+const l=pts[pts.length-1];
+x.strokeStyle=col;x.globalAlpha=.3;x.lineWidth=3;x.beginPath();x.arc(l.px,l.py,4.5,0,7);x.stroke();
+x.globalAlpha=1;x.fillStyle=col;x.beginPath();x.arc(l.px,l.py,2.5,0,7);x.fill()})}
 
 /* ---------- HOME: REMINDERS ---------- */
 const daySel=Array(7).fill(true);let reminders=store.get('cc-reminders',[]);
